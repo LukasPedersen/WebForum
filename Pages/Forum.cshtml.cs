@@ -69,9 +69,9 @@ namespace WebApplication1.Pages
         }
         public IActionResult OnPostDeleteThread()
         {
-            int _topicID = Convert.ToInt32(Request.Form["_topicID"]);
-            string _forfatter = Request.Form["_forfatter"];
-            //rep.DeleteThread(_topicID, _forfatter);
+            string _ThreadHeadder = Request.Form["_ThreadHeadder"];
+            string _Threadforfatter = Request.Form["_Threadforfatter"];
+            rep.DeleteThread(_ThreadHeadder, _Threadforfatter);
             return OnGet();
         }
     }

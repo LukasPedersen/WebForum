@@ -112,7 +112,7 @@
                                     <line x1="12" y1="5" x2="12" y2="19"></line>
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                 </svg>
-                                New Topic
+                                New Thread
                             </button>
                         </div>
                         <div class="modal fade float-right" id="threadModal_@Topic.topicID" tabindex="-1" role="dialog" aria-labelledby="threadModalLabel_@Topic.topicID" aria-hidden="true">
@@ -165,6 +165,11 @@
                                                         @thread.content
                                                     </p>
                                                 </div>
+                                                <form method="post">
+                                                    <textarea hidden="hidden" name="_ThreadHeadder">@thread.headder</textarea>
+                                                    <textarea hidden="hidden" name="_Threadforfatter">@thread.threadForfatter</textarea>
+                                                    <input type="submit" class="btn btn-primary" asp-page-handler="DeleteThread" value="Delete" />
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
