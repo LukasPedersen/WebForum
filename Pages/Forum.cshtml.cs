@@ -20,10 +20,10 @@ namespace WebApplication1.Pages
         public IList<Topic> listOfTopics { get; set; }
 
 
-        
+        Repository rep = new Repository();
         public IActionResult OnGet()
         {
-            Repository rep = new Repository();
+            
             if (Repository.loggedIn == false)
                 return OnPostLogIn();
             else
@@ -40,6 +40,13 @@ namespace WebApplication1.Pages
         {
             Repository.currentLoggedInUsername = null;
             Repository.loggedIn = false;
+            return OnGet();
+        }
+        public IActionResult OnPostNewTopic()
+        {
+            string _headder = Request.Form["threadHeadder"];
+            string _text = Request.Form["threadText"];
+            rep.CreateTopic(_headder, _text);
             return OnGet();
         }
     }
