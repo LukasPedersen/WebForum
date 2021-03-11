@@ -20,8 +20,8 @@ No tool or manager needed for installation.
 ```
 1. Added readme file
 2. Added login page
-2. Added Sign up page
-3. Created Repository
+3. Added Sign up page
+4. Created Repository
 ```
 ##### v0.2.0
 ```
