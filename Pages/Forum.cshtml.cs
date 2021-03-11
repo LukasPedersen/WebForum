@@ -1,29 +1,36 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using System;
-using WebApplication1.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication1.Models;
+using WebApplication1.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebApplication1.Pages
 {
-    public class PrivacyModel : PageModel
+    public class ForumModel : PageModel
     {
-        private readonly ILogger<PrivacyModel> _logger;
+        private readonly IRepository _context;
 
-        public PrivacyModel(ILogger<PrivacyModel> logger)
+        public ForumModel(IRepository context)
         {
-            _logger = logger;
+            _context = context;
         }
+        public IList<Topic> listOfTopics { get; set; }
 
+
+        
         public IActionResult OnGet()
         {
+            Repository rep = new Repository();
             if (Repository.loggedIn == false)
                 return OnPostLogIn();
             else
+            {
+                listOfTopics = rep.GetAllTopics();
                 return null;
+            }
         }
         public IActionResult OnPostLogIn()
         {
