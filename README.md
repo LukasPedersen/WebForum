@@ -42,12 +42,16 @@ No tool or manager needed for installation.
 ```
 1. Fexed a bug where user can login as nothing
 ```
-
+##### v0.5.2
+```
+1. owner of a topic can now delete the topic
+2. Admin has rights to delete all topics
+```
 ### ToDo list
 - [x] User can login
 - [x] New User can create new profile
 - [x] Users that are in the system can Read/Write Topics/Threads
-- [ ] Owner of a topic can delete his/hers topics
+- [X] Owner of a topic And admin can delete his/hers topics
 
 
 ## Contributors

@@ -90,8 +90,9 @@ namespace WebApplication1.Data
                 }
             }
         }
+
         /// <summary>
-        /// 
+        /// Returens list of topics
         /// </summary>
         /// <returns></returns>
         public List<Topic> GetAllTopics()
@@ -132,6 +133,11 @@ namespace WebApplication1.Data
             }
         }
 
+        /// <summary>
+        /// Creates a topic and inserts it into database
+        /// </summary>
+        /// <param name="headder"></param>
+        /// <param name="text"></param>
         public void CreateTopic(string headder, string text)
         {
             int UserID;
@@ -160,6 +166,31 @@ namespace WebApplication1.Data
             finally
             {
                 sqlCon.Close();
+            }
+        }
+
+        public void DeleteTopic(int topicID, string forfatter)
+        {
+            if (forfatter == currentLoggedInUsername || currentLoggedInUsername == "Admin")
+            {
+                string sqlCreateUserCommand = "EXEC spDeleteTopic @topics_ID, @forfatter";
+                SqlCommand sqlCmd = new SqlCommand(sqlCreateUserCommand, sqlCon);
+                sqlCmd.Parameters.AddWithValue("@topics_ID", topicID);
+                sqlCmd.Parameters.AddWithValue("@forfatter", forfatter);
+
+                sqlCon.Open();
+                try
+                {
+                    sqlCmd.ExecuteNonQuery();
+                }
+                finally
+                {
+                    sqlCon.Close();
+                }
+            }
+            else
+            {
+                //Write massage
             }
         }
     }
