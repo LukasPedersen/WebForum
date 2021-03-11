@@ -1,13 +1,14 @@
 using System;
+using WebApplication1;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebApplication1.Pages.Shared
+namespace WebApplication1.Pages
 {
-    public class LoginModel : PageModel
+    public class SignUpModel : PageModel
     {
         public void OnGet()
         {
@@ -17,12 +18,10 @@ namespace WebApplication1.Pages.Shared
             Repository rep = new Repository();
             string Iusername = Request.Form["Iusername"];
             string Ipassword = Request.Form["Ipassword"];
-            bool exists = rep.UserLogin(Iusername, Ipassword);
-            if (exists == true)
-            {
-                return RedirectToPage("Index");
-            }
-            else
+            string Ifirstname = Request.Form["Ifirstname"];
+            string Ilastname = Request.Form["Ilastname"];
+            string Iemail = Request.Form["Iemail"];
+            rep.CreateUser(Iusername, Ipassword, Ifirstname, Ilastname, Iemail);
             return RedirectToPage("Login");
         }
     }
