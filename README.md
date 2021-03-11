@@ -38,14 +38,16 @@ No tool or manager needed for installation.
 2. implemented default connection string
 2. User can now see all Topics in database
 ```
-##### v0.4.1
+##### v0.4.2
 ```
-1. Users can now create Topics
+1. Fexed a bug where user can login as nothing
 ```
+
 ### ToDo list
 - [x] User can login
 - [x] New User can create new profile
-- [ ] Users that are in the system can Read/Write Topics/Threads
+- [x] Users that are in the system can Read/Write Topics/Threads
+- [ ] Owner of a topic can delete his/hers topics
 
 
 ## Contributors

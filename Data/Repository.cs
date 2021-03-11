@@ -62,25 +62,32 @@ namespace WebApplication1.Data
         /// <returns></returns>
         public bool UserLogin(string username, string pasword)
         {
-            SqlCommand cmd = new SqlCommand("Select count(*) from Login where username= @userName AND passWord = @passWord", sqlCon);
-            cmd.Parameters.AddWithValue("@Username", username);
-            cmd.Parameters.AddWithValue("@passWord", pasword);
-            sqlCon.Open();
-            try
+            if (username == "" || pasword == "")
             {
-                var result = cmd.ExecuteScalar();
-                if (result != null)
-                {
-                    loggedIn = true;
-                    currentLoggedInUsername = username;
-                    return true;
-                }
-                else
-                    return false;
+                return false;
             }
-            finally
+            else
             {
-                sqlCon.Close();
+                SqlCommand cmd = new SqlCommand("Select * from Login where username = @userName AND passWord = @passWord", sqlCon);
+                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@passWord", pasword);
+                sqlCon.Open();
+                try
+                {
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        loggedIn = true;
+                        currentLoggedInUsername = username;
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+                finally
+                {
+                    sqlCon.Close();
+                }
             }
         }
         /// <summary>
