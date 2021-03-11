@@ -2,7 +2,6 @@
     color: #1a202c;
     text-align: left;
     background-color: #e2e8f0;
-    overflow:hidden;
 }
 
 .inner-wrapper {
@@ -22,10 +21,12 @@
     }
     .container {
         max-height: 85vh !important;
+        min-height: 5vh !important;
     }
 }
 .inner-wrapper {
     max-height: 85vh !important;
+    min-height: 5vh !important;
 }
 .simplebar-content-wrapper{
     overflow:hidden !important;
@@ -70,7 +71,6 @@
     padding: 1rem;
     overflow-y: auto;
     position: relative;
-    flex: 1 1 auto;
 }
 
     .inner-main-body .sticky-top,
@@ -98,10 +98,6 @@
 
     .inner-main {
         left: 0;
-    }
-
-    .inner-expand .main-body {
-        overflow: hidden;
     }
 
     .inner-expand .inner-wrapper {
@@ -153,7 +149,6 @@
 }
 
 .card-body {
-    flex: 1 1 auto;
     min-height: 1px;
     padding: 1rem;
 }

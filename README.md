@@ -32,11 +32,15 @@ No tool or manager needed for installation.
 ```
 1. fixed typo in ReadmeFile
 ```
-##### v0.3.0
+##### v0.3.1
 ```
 1. Added Forum page
 2. implemented default connection string
 2. User can now see all Topics in database
+```
+##### v0.4.1
+```
+1. Users can now create Topics
 ```
 ### ToDo list
 - [x] User can login

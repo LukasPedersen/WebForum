@@ -13,7 +13,7 @@ namespace WebApplication1.Data
     {
         public static bool loggedIn;
         public static string currentLoggedInUsername;
-        private List<Topic> allTopics;
+        private List<Topic> allTopics = new List<Topic>();
 
         public static IConfigurationRoot configuration { get; private set; }
         static string connectionString;
@@ -25,6 +25,7 @@ namespace WebApplication1.Data
             configuration = builder.Build();
             connectionString = configuration.GetConnectionString("DefaultConnection");
         }
+
         /// <summary>
         /// Create new user. Needs a <paramref name="username"/>, <paramref name="password"/>, <paramref name="firstName"/>, <paramref name="lastName"/>, <paramref name="email"/>
         /// </summary>
@@ -111,10 +112,7 @@ namespace WebApplication1.Data
                                 string tempText = reader.GetValue(indexOfColumn4).ToString();
                                 string tempForfatter = reader.GetValue(indexOfColumn5).ToString();
 
-                                allTopics = new List<Topic>
-                                {
-                                    new Topic{topicID = tempTopicID, headder = tempHeadder, text = tempText, forfatter = tempForfatter}
-                                };
+                                allTopics.Add(new Topic { topicID = tempTopicID, headder = tempHeadder, text = tempText, forfatter = tempForfatter });
                             }
                         }
                         return allTopics;
@@ -124,6 +122,37 @@ namespace WebApplication1.Data
                         sqlCon.Close();
                     }
                 }
+            }
+        }
+
+        public void CreateTopic(string headder, string text)
+        {
+            int UserID;
+            SqlCommand cmd = new SqlCommand("Select users_ID from Login where username= @userName", sqlCon);
+            cmd.Parameters.AddWithValue("@Username", currentLoggedInUsername);
+
+            sqlCon.Open();
+            try
+            {
+                UserID = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            finally
+            {
+                sqlCon.Close();
+            }
+            SqlCommand cmd1 = new SqlCommand("EXEC spCreateTopic @forfatterUser_ID, @headder, @text, @forfatter", sqlCon);
+            cmd1.Parameters.AddWithValue("@forfatterUser_ID", UserID);
+            cmd1.Parameters.AddWithValue("@headder", headder);
+            cmd1.Parameters.AddWithValue("@text", text);
+            cmd1.Parameters.AddWithValue("@forfatter", currentLoggedInUsername);
+            sqlCon.Open();
+            try
+            {
+                cmd1.ExecuteNonQuery();
+            }
+            finally
+            {
+                sqlCon.Close();
             }
         }
     }
