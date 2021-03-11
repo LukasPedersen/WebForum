@@ -20,8 +20,13 @@ No tool or manager needed for installation.
 ```
 1. Added readme file
 2. Added login page
-2. Added Sign up page
-3. Created Repository
+3. Added Sign up page
+4. Created Repository
+```
+##### v0.2.0
+```
+1. Added Privacy page
+2. Users cant see Privacy page if not logged in
 ```
 ### ToDo list
 - [x] User can login
