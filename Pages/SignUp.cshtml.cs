@@ -23,7 +23,7 @@ namespace WebApplication1.Pages
             string Ilastname = Request.Form["Ilastname"];
             string Iemail = Request.Form["Iemail"];
             rep.CreateUser(Iusername, Ipassword, Ifirstname, Ilastname, Iemail);
-            return RedirectToPage("Login");
+            return RedirectToPage("Index");
         }
     }
 }
