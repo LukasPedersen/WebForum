@@ -23,6 +23,11 @@ No tool or manager needed for installation.
 2. Added Sign up page
 3. Created Repository
 ```
+##### v0.2.0
+```
+1. Added Privacy page
+2. Users cant see Privacy page if not logged in
+```
 ### ToDo list
 - [x] User can login
 - [x] New User can create new profile

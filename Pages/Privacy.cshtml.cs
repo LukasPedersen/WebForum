@@ -17,8 +17,22 @@ namespace WebApplication1.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (Repository.loggedIn == false)
+                return OnPostLogIn();
+            else
+                return null;
+        }
+        public IActionResult OnPostLogIn()
+        {
+            return RedirectToPage("Login");
+        }
+        public IActionResult OnPostLogOut()
+        {
+            Repository.currentLoggedInUsername = null;
+            Repository.loggedIn = false;
+            return OnGet();
         }
     }
 }
