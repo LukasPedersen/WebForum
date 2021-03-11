@@ -23,6 +23,7 @@ namespace WebApplication1.Data
 
         //Delete/create Threads 
         public void CreateThread(int topicID, string headder, string contents);
+        public void DeleteThread(string herdder, string forfatter);
 
     }
 }

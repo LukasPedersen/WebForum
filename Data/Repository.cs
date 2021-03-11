@@ -282,6 +282,28 @@ namespace WebApplication1.Data
                 sqlCon.Close();
             }
         }
+        public void DeleteThread(string headder, string forfatter)
+        {
+            if (forfatter == currentLoggedInUsername || currentLoggedInUsername == "Admin")
+            {
+                SqlCommand cmd1 = new SqlCommand("DELETE FROM Threads WHERE headder = @headder AND forfatter = @forfatter", sqlCon);
+                cmd1.Parameters.AddWithValue("@headder", headder);
+                cmd1.Parameters.AddWithValue("@forfatter", forfatter);
+                sqlCon.Open();
+                try
+                {
+                    cmd1.ExecuteNonQuery();
+                }
+                finally
+                {
+                    sqlCon.Close();
+                }
+            }
+            else
+            {
+                //Write massage
+            }
+        }
     }
     
 }
