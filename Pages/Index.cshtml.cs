@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using WebApplication1.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,7 +18,6 @@ namespace WebApplication1.Pages
 
         public IActionResult OnGet()
         {
-            Repository.SetConnectionString();
             if (Repository.loggedIn == false)
                 return OnPostLogIn();
             else

@@ -28,16 +28,6 @@ No tool or manager needed for installation.
 1. Added Privacy page
 2. Users cant see Privacy page if not logged in
 ```
-##### v0.2.1
-```
-1. fixed typo in ReadmeFile
-```
-##### v0.3.0
-```
-1. Added Forum page
-2. implemented default connection string
-2. User can now see all Topics in database
-```
 ### ToDo list
 - [x] User can login
 - [x] New User can create new profile
