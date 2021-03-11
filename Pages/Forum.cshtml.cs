@@ -49,5 +49,12 @@ namespace WebApplication1.Pages
             rep.CreateTopic(_headder, _text);
             return OnGet();
         }
+        public IActionResult OnPostDeleteTopic()
+        {
+            int _topicID = Convert.ToInt32(Request.Form["_topicID"]);
+            string _forfatter = Request.Form["_forfatter"];
+            rep.DeleteTopic(_topicID, _forfatter);
+            return OnGet();
+        }
     }
 }

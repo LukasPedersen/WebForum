@@ -85,6 +85,11 @@
                                     <div class="text-muted small text-center align-self-center">
                                         <span class="d-none d-sm-inline-block"><i class="far fa-eye"></i> 19</span>
                                         <span><i class="far fa-comment ml-2"></i> 3</span>
+                                        <form method="post">
+                                            <textarea hidden="hidden" name="_topicID">@Topic.topicID</textarea>
+                                            <textarea hidden="hidden" name="_forfatter">@Topic.forfatter</textarea>
+                                            <input type="submit" class="btn btn-primary" asp-page-handler="DeleteTopic" value="Delete" />
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +160,7 @@
                 <div class="modal-content">
                     <form method="post">
                         <div class="modal-header d-flex align-items-center bg-primary text-white">
-                            <h6 class="modal-title mb-0" id="threadModalLabel">New Discussion</h6>
+                            <h6 class="modal-title mb-0" id="threadModalLabel">New Topic</h6>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>

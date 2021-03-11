@@ -62,29 +62,37 @@ namespace WebApplication1.Data
         /// <returns></returns>
         public bool UserLogin(string username, string pasword)
         {
-            SqlCommand cmd = new SqlCommand("Select count(*) from Login where username= @userName AND passWord = @passWord", sqlCon);
-            cmd.Parameters.AddWithValue("@Username", username);
-            cmd.Parameters.AddWithValue("@passWord", pasword);
-            sqlCon.Open();
-            try
+            if (username == "" || pasword == "")
             {
-                var result = cmd.ExecuteScalar();
-                if (result != null)
-                {
-                    loggedIn = true;
-                    currentLoggedInUsername = username;
-                    return true;
-                }
-                else
-                    return false;
+                return false;
             }
-            finally
+            else
             {
-                sqlCon.Close();
+                SqlCommand cmd = new SqlCommand("Select * from Login where username = @userName AND passWord = @passWord", sqlCon);
+                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@passWord", pasword);
+                sqlCon.Open();
+                try
+                {
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        loggedIn = true;
+                        currentLoggedInUsername = username;
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+                finally
+                {
+                    sqlCon.Close();
+                }
             }
         }
+
         /// <summary>
-        /// 
+        /// Returens list of topics
         /// </summary>
         /// <returns></returns>
         public List<Topic> GetAllTopics()
@@ -125,6 +133,11 @@ namespace WebApplication1.Data
             }
         }
 
+        /// <summary>
+        /// Creates a topic and inserts it into database
+        /// </summary>
+        /// <param name="headder"></param>
+        /// <param name="text"></param>
         public void CreateTopic(string headder, string text)
         {
             int UserID;
@@ -153,6 +166,31 @@ namespace WebApplication1.Data
             finally
             {
                 sqlCon.Close();
+            }
+        }
+
+        public void DeleteTopic(int topicID, string forfatter)
+        {
+            if (forfatter == currentLoggedInUsername || currentLoggedInUsername == "Admin")
+            {
+                string sqlCreateUserCommand = "EXEC spDeleteTopic @topics_ID, @forfatter";
+                SqlCommand sqlCmd = new SqlCommand(sqlCreateUserCommand, sqlCon);
+                sqlCmd.Parameters.AddWithValue("@topics_ID", topicID);
+                sqlCmd.Parameters.AddWithValue("@forfatter", forfatter);
+
+                sqlCon.Open();
+                try
+                {
+                    sqlCmd.ExecuteNonQuery();
+                }
+                finally
+                {
+                    sqlCon.Close();
+                }
+            }
+            else
+            {
+                //Write massage
             }
         }
     }
