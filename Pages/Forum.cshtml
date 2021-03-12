@@ -30,10 +30,10 @@
                                     <div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;">
                                         <div class="simplebar-content" style="padding: 16px;">
                                             <nav class="nav nav-pills nav-gap-y-1 flex-column">
-                                                <a href="javascript:void(0)" class="nav-link nav-link-faded has-icon active">All Threads</a>
-                                                <a href="javascript:void(0)" class="nav-link nav-link-faded has-icon">Popular this week</a>
-                                                <a href="javascript:void(0)" class="nav-link nav-link-faded has-icon">Popular all time</a>
-                                                <a href="javascript:void(0)" class="nav-link nav-link-faded has-icon">Solved</a>
+                                                <a href="javascript:void(0)" class="nav-link nav-link-faded has-icon active">Games</a>
+                                                <a href="javascript:void(0)" class="nav-link nav-link-faded has-icon">Art</a>
+                                                <a href="javascript:void(0)" class="nav-link nav-link-faded has-icon">NSFW</a>
+                                                <a href="javascript:void(0)" class="nav-link nav-link-faded has-icon">Memes</a>
                                                 <a href="javascript:void(0)" class="nav-link nav-link-faded has-icon">Unsolved</a>
                                                 <a href="javascript:void(0)" class="nav-link nav-link-faded has-icon">No replies yet</a>
                                             </nav>
@@ -62,121 +62,127 @@
                         <option value="3">Unsolved</option>
                         <option value="3">No Replies Yet</option>
                     </select>
-                    <span class="input-icon input-icon-sm ml-auto w-auto">
-                        <input type="text" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4" placeholder="Search in topics" />
-                    </span>
+                    <form class="input-icon input-icon-sm ml-auto w-auto">
+                        <input type="text" id="Search" class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4" onkeyup="runSearch()" placeholder="Search in topics" />
+                    </form>
                 </div>
                 @foreach (WebApplication1.Models.Topic Topic in Model.listOfTopics)
                 {
-                    
-                    <div class=" p-1 p-sm-1 collapse forum-content_@Topic.topicID show">
-                        <div class="card mb-2">
-                            <div class="card-body p-2 p-sm-3">
-                                <div class="media forum-item">
-                                    <div class="media-body">
-                                        <h6><a href="#" data-toggle="collapse" data-target=".forum-content_@Topic.topicID" class="text-body">@Topic.headder</a></h6>
-                                        <p class="text-secondary">
-                                            @Topic.text
-                                        </p>
-                                        <p class="text-muted"><a href="javascript:void(0)">@Topic.forfatter</a> Creator</p>
-                                    </div>
-                                    <div class="text-muted small text-center align-self-center">
-                                        <span>
-                                            <i class="far fa-comment ml-2"></i>
-                                            @{ int count = 0; }
-                                            @foreach (WebApplication1.Models.Thread Thread in Model.listOfThreads)
-                                            {
-                                                if (Topic.topicID == Thread.topicsID)
-                                                {
-                                                    count++;
-                                                }
+            <div class="target">
+                <!--@Topic.headder-->
 
-                                            }
-                                            @count
-                                        </span>
-                                        <form method="post">
-                                            <textarea hidden="hidden" name="_topicID">@Topic.topicID</textarea>
-                                            <textarea hidden="hidden" name="_forfatter">@Topic.forfatter</textarea>
-                                            <input type="submit" class="btn btn-primary" asp-page-handler="DeleteTopic" value="Delete" />
-                                        </form>
-                                    </div>
+                <div class=" p-1 p-sm-1 collapse forum-content_@Topic.topicID show">
+                    <div class="card mb-2">
+                        <div class="card-body p-2 p-sm-3">
+                            <div class="media forum-item">
+                                <div class="media-body">
+                                    <h6><a href="#" data-toggle="collapse" data-target=".forum-content_@Topic.topicID" class="text-body">@Topic.headder</a></h6>
+                                    <p class="text-secondary">
+                                        @Topic.text
+                                    </p>
+                                    <p class="text-muted"><a href="javascript:void(0)">@Topic.forfatter</a> Creator</p>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="inner-main-body p-2 p-sm-3 collapse forum-content_@Topic.topicID">
-                        <a href="#" class="btn btn-light btn-sm mb-3 has-icon float-left" data-toggle="collapse" data-target=".forum-content_@Topic.topicID"><i class="fa fa-arrow-left mr-2"></i>Back</a>
-                        <div class="inner-sidebar-header justify-content-center">
-                            <button class="btn btn-primary has-icon btn-block" type="button" data-toggle="modal" data-target="#threadModal_@Topic.topicID">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-2">
-                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                </svg>
-                                New Thread
-                            </button>
-                        </div>
-                        <div class="modal fade float-right" id="threadModal_@Topic.topicID" tabindex="-1" role="dialog" aria-labelledby="threadModalLabel_@Topic.topicID" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
+                                <div class="text-muted small text-center align-self-center">
+                                    <span>
+                                        <i class="far fa-comment ml-2"></i>
+                                        @{ int count = 0; }
+                                        @foreach (WebApplication1.Models.Thread Thread in Model.listOfThreads)
+                                        {
+                                            if (Topic.topicID == Thread.topicsID)
+                                            {
+                                                count++;
+                                            }
+
+                                        }
+                                        @count
+                                    </span>
                                     <form method="post">
-                                        <div class="modal-header d-flex align-items-center bg-primary text-white">
-                                            <h6 class="modal-title mb-0" id="threadModalLabel_@Topic.topicID">New Thread</h6>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <textarea hidden="hidden" name="_threadTopicID">@Topic.topicID</textarea>
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label for="threadHeadder">Headder</label>
-                                                <input type="text" class="form-control" name="threadHeadder" id="threadHeadder" placeholder="Enter headder" autofocus="" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="threadText">Text</label>
-                                                <input type="text" class="form-control" name="threadText" id="threadText" placeholder="Enter text" autofocus="" />
-                                            </div>
-                                            <textarea class="form-control summernote" style="display: none;"></textarea>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                                            <input type="submit" class="btn btn-primary" asp-page-handler="NewThread" value="Create" />
-                                        </div>
+                                        <textarea hidden="hidden" name="_topicID">@Topic.topicID</textarea>
+                                        <textarea hidden="hidden" name="_forfatter">@Topic.forfatter</textarea>
+                                        <input type="submit" class="btn btn-primary" asp-page-handler="DeleteTopic" value="Delete" />
                                     </form>
                                 </div>
                             </div>
                         </div>
-                        @foreach (WebApplication1.Models.Thread thread in Model.listOfThreads)
-                        {
-                            if (Topic.topicID == thread.topicsID)
-                            {
+                    </div>
+                </div>
+                <div class="inner-main-body p-2 p-sm-3 collapse forum-content_@Topic.topicID">
+                    <a href="#" class="btn btn-light btn-sm mb-3 has-icon float-left" data-toggle="collapse" data-target=".forum-content_@Topic.topicID"><i class="fa fa-arrow-left mr-2"></i>Back</a>
+                    <div class="inner-sidebar-header justify-content-center">
+                        <button class="btn btn-primary has-icon btn-block" type="button" data-toggle="modal" data-target="#threadModal_@Topic.topicID">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            New Thread
+                        </button>
+                    </div>
+                    <div class="modal fade float-right" id="threadModal_@Topic.topicID" tabindex="-1" role="dialog" aria-labelledby="threadModalLabel_@Topic.topicID" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <form method="post">
+                                    <div class="modal-header d-flex align-items-center bg-primary text-white">
+                                        <h6 class="modal-title mb-0" id="threadModalLabel_@Topic.topicID">New Thread</h6>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <textarea hidden="hidden" name="_threadTopicID">@Topic.topicID</textarea>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="threadHeadder">Headder</label>
+                                            <input type="text" class="form-control" name="threadHeadder" id="threadHeadder" placeholder="Enter headder" autofocus="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="threadText">Text</label>
+                                            <input type="text" class="form-control" name="threadText" id="threadText" placeholder="Enter text" autofocus="" />
+                                        </div>
+                                        <textarea class="form-control summernote" style="display: none;"></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                                        <input type="submit" class="btn btn-primary" asp-page-handler="NewThread" value="Create" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
-                                <div class="card mb-2">
-                                    <div class="card-body">
-                                        <div class="media forum-item">
-                                            <a href="javascript:void(0)" class="card-link">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle" width="50" alt="User" />
-                                                <small class="d-block text-center text-muted">@thread.threadForfatter</small>
-                                            </a>
-                                            <div class="media-body ml-3">
-                                                <small class="text-muted ml-2">1 hour ago</small>
-                                                <h5 class="mt-1">@thread.headder</h5>
-                                                <div class="mt-3 font-size-sm">
-                                                    <p>
-                                                        @thread.content
-                                                    </p>
-                                                </div>
-                                                <form method="post">
-                                                    <textarea hidden="hidden" name="_ThreadHeadder">@thread.headder</textarea>
-                                                    <textarea hidden="hidden" name="_Threadforfatter">@thread.threadForfatter</textarea>
-                                                    <input type="submit" class="btn btn-primary" asp-page-handler="DeleteThread" value="Delete" />
-                                                </form>
+
+                    @foreach (WebApplication1.Models.Thread thread in Model.listOfThreads)
+                    {
+                        if (Topic.topicID == thread.topicsID)
+                        {
+
+                            <div class="card mb-2">
+                                @thread.headder
+                                <div class="card-body">
+                                    <div class="media forum-item">
+                                        <a href="javascript:void(0)" class="card-link">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle" width="50" alt="User" />
+                                            <small class="d-block text-center text-muted">@thread.threadForfatter</small>
+                                        </a>
+                                        <div class="media-body ml-3">
+                                            <small class="text-muted ml-2">1 hour ago</small>
+                                            <h5 class="mt-1">@thread.headder</h5>
+                                            <div class="mt-3 font-size-sm">
+                                                <p>
+                                                    @thread.content
+                                                </p>
                                             </div>
+                                            <form method="post">
+                                                <textarea hidden="hidden" name="_ThreadHeadder">@thread.headder</textarea>
+                                                <textarea hidden="hidden" name="_Threadforfatter">@thread.threadForfatter</textarea>
+                                                <input type="submit" class="btn btn-primary" asp-page-handler="DeleteThread" value="Delete" />
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            </div>
                         }
-                    </div>
+                    }
+                </div>
+            </div>
                 }
             </div>
             <!-- /Inner main -->
@@ -214,3 +220,19 @@
         </div>
     </div>
 </div>
+<script>
+    function runSearch() {
+        var input = document.getElementById("Search");
+        var filter = input.value.toLowerCase();
+        var nodes = document.getElementsByClassName('target');
+        console.log("Jeg kørte!");
+
+        for (i = 0; i < nodes.length; i++) {
+            if (nodes[i].innerText.toLowerCase().includes(filter)) {
+                nodes[i].style.display = "block";
+            } else {
+                nodes[i].style.display = "none";
+            }
+        }
+    }
+</script>

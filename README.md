@@ -60,6 +60,10 @@ No tool or manager needed for installation.
 1. User can now delete there own threads
 2. Admin can delete all threads
 ```
+##### v0.8.2
+```
+1. User can now Search in all topics
+```
 ### ToDo list
 - [x] User can login
 - [x] New User can create new profile
