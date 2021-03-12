@@ -3,6 +3,9 @@
     text-align: left;
     background-color: #e2e8f0;
 }
+.target{
+    font-size: 0 !important;
+}
 
 .inner-wrapper {
     position: relative;
