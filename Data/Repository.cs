@@ -69,7 +69,7 @@ namespace WebApplication1.Data
             }
             else
             {
-                SqlCommand cmd = new SqlCommand("Select * from Login where username = @userName AND passWord = @passWord", sqlCon);
+                SqlCommand cmd = new SqlCommand("EXEC spGetUser @userName, @passWord", sqlCon);
                 cmd.Parameters.AddWithValue("@Username", username);
                 cmd.Parameters.AddWithValue("@passWord", pasword);
                 sqlCon.Open();
@@ -104,7 +104,7 @@ namespace WebApplication1.Data
             {
                 using (var command = sqlCon.CreateCommand())
                 {
-                    command.CommandText = "SELECT topics_ID, chatRoom_ID, headder, text, forfatter FROM Topics";
+                    command.CommandText = "EXEC spGetAllTopics";
                     try
                     {
                         sqlCon.Open();
@@ -142,7 +142,7 @@ namespace WebApplication1.Data
             {
                 using (var command = sqlCon.CreateCommand())
                 {
-                    command.CommandText = "SELECT thread_ID, users_ID, topics_ID, headder, content, forfatter FROM Threads";
+                    command.CommandText = "EXEC spGetAllThreads";
                     try
                     {
                         sqlCon.Open();
@@ -183,7 +183,7 @@ namespace WebApplication1.Data
         public void CreateTopic(string headder, string text)
         {
             int UserID;
-            SqlCommand cmd = new SqlCommand("Select users_ID from Login where username= @userName", sqlCon);
+            SqlCommand cmd = new SqlCommand("EXEC spGetUserID @userName", sqlCon);
             cmd.Parameters.AddWithValue("@Username", currentLoggedInUsername);
 
             sqlCon.Open();
@@ -219,7 +219,7 @@ namespace WebApplication1.Data
         {
             if (forfatter == currentLoggedInUsername || currentLoggedInUsername == "Admin")
             {
-                SqlCommand cmd1 = new SqlCommand("DELETE FROM Threads WHERE topics_ID = @topics_ID", sqlCon);
+                SqlCommand cmd1 = new SqlCommand("EXEC spDeleteAllThreadsFromTopic @topics_ID", sqlCon);
                 cmd1.Parameters.AddWithValue("@topics_ID", topicID);
                 sqlCon.Open();
                 try
@@ -254,7 +254,7 @@ namespace WebApplication1.Data
         public void CreateThread(int topicID, string headder, string contents)
         {
             int UserID;
-            SqlCommand cmd = new SqlCommand("Select users_ID from Login where username= @userName", sqlCon);
+            SqlCommand cmd = new SqlCommand("EXEC spGetUserID @userName", sqlCon);
             cmd.Parameters.AddWithValue("@Username", currentLoggedInUsername);
 
             sqlCon.Open();
@@ -286,7 +286,7 @@ namespace WebApplication1.Data
         {
             if (forfatter == currentLoggedInUsername || currentLoggedInUsername == "Admin")
             {
-                SqlCommand cmd1 = new SqlCommand("DELETE FROM Threads WHERE headder = @headder AND forfatter = @forfatter", sqlCon);
+                SqlCommand cmd1 = new SqlCommand("EXEC spDeleteThread @headder, @forfatter", sqlCon);
                 cmd1.Parameters.AddWithValue("@headder", headder);
                 cmd1.Parameters.AddWithValue("@forfatter", forfatter);
                 sqlCon.Open();

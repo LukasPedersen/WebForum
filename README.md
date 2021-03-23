@@ -64,6 +64,10 @@ No tool or manager needed for installation.
 ```
 1. User can now Search in all topics
 ```
+##### v0.9.2
+```
+1. All connection to sql is now stored procedures
+```
 ### ToDo list
 - [x] User can login
 - [x] New User can create new profile
